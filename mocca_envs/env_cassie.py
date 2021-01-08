@@ -6,6 +6,7 @@ import numpy as np
 
 from mocca_envs.env_base import EnvBase
 from mocca_envs import current_dir
+from mocca_envs.bullet_utils import BodyPart, Joint
 
 from .loadstep import CassieTrajectory
 
@@ -14,6 +15,7 @@ class Cassie:
     model_path = os.path.join(
         current_dir, "data", "robots", "cassie", "urdf", "cassie_collide.urdf"
     )
+    print('path:', model_path)
     base_position = (0.0, 0.0, 1.085)
     base_orientation = (0.0, 0.0, 0.0, 1.0)
 
@@ -63,6 +65,8 @@ class Cassie:
         self._p = bc
         self.base_power = power
         self.rod_joints = {}
+        # just to test with relative path
+        self.model_path = '/home/prakyath/gitfolder/Python_for_robotics/envs/mocca_envs/mocca_envs/data/robots/cassie/urdf/cassie_collide.urdf'
 
         self.parts = None
         self.jdict = None
@@ -85,8 +89,7 @@ class Cassie:
             | self._p.URDF_USE_INERTIA_FROM_FILE
         )
         self.object_id = (
-            self._p.loadURDF(
-                self.model_path,
+            self._p.loadURDF( self.model_path,
                 basePosition=self.base_position,
                 baseOrientation=self.base_orientation,
                 useFixedBase=False,

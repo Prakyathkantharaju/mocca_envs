@@ -24,6 +24,8 @@ class EnvBase(gym.Env):
         **kwargs
     ):
         self.robot_kwargs = robot_kwargs
+        # small hack to test the cassieEnv
+        self.robot_kwargs = kwargs
         self.robot_class = robot_class
 
         self.is_rendered = render

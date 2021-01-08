@@ -1,16 +1,14 @@
-import os
-import sys
-
-current_dir = os.path.dirname(os.path.realpath(__file__))
-parent_dir = os.path.dirname(current_dir)
-os.sys.path.insert(0, parent_dir)
-
 import gym
 import numpy as np
 
+import mocca_envs
+
+
 DEG2RAD = np.pi / 180
 
-env_name = sys.argv[1] if len(sys.argv) > 1 else "mocca_envs:Monkey3DCustomEnv-v0"
+
+env_name = "Walker3DMimicEnv-v0"
+env_name = "CassiePhaseMirror2DEnv-v0"
 env = gym.make(env_name, render=True)
 action_dim = env.action_space.shape[0]
 offset = 6
@@ -22,7 +20,7 @@ obs = env.reset()
 
 
 bc = env.unwrapped._p
-robot_id = env.unwrapped.robot.id
+robot_id = env.unwrapped.robot.object_id[0]
 num_joints = bc.getNumJoints(robot_id)
 
 
@@ -72,3 +70,4 @@ while True:
 
     if done:
         env.reset()
+
